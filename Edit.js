@@ -54,83 +54,51 @@ class Edit extends Component {
   Header = () => {
     return (
       <View style={styles.header}>
-        <Text>Edit</Text>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "gray",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={this.call}
-        >
+        <View style={styles.box_header}>
+          <Text style={styles.header_text}>Feed</Text>
+        </View>
+        <View style={styles.box_nav}>
+          {/* <TouchableOpacity style={styles.header_button} onPress={this.call}>
           <Text>Call</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "lime",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={this.check}
-        >
+        <TouchableOpacity style={styles.header_button} onPress={this.check}>
           <Text>Check</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "orange",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={() => {
-            this.props.navigation.navigate("Feed", {
-              id: this.id,
-              name: this.name,
-            });
-          }}
-        >
-          <Text>Feed</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "pink",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={() => {
-            this.props.navigation.navigate("Post", {
-              id: this.id,
-              name: this.name,
-              count: this.state.count,
-            });
-          }}
-        >
-          <Text>Post</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "white",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={() => {
-            this.props.navigation.navigate("Edit", {
-              id: this.id,
-              name: this.name,
-            });
-          }}
-        >
-          <Text>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "cyan",
-            width: 50,
-            height: "100%",
-          }}
-          onPress={this.reload}
-        >
-          <Text>Reload</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Feed");
+            }}
+          >
+            <Text>Feed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Post", {
+                id: this.id,
+                name: this.name,
+                count: this.state.count,
+              });
+            }}
+          >
+            <Text>Post</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Edit", {
+                id: this.id,
+                name: this.name,
+              });
+            }}
+          >
+            <Text>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.header_button} onPress={this.reload}>
+            <Text>Reload</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -147,7 +115,7 @@ class Edit extends Component {
   render(props) {
     const { navigation } = this.props;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <this.Header />
         <View style={styles.top}></View>
         <View style={styles.content}>
@@ -162,7 +130,7 @@ class Edit extends Component {
             </View>
             <View style={styles.box}>
               <TouchableOpacity style={styles.button} onPress={this.on_change}>
-                <Text>Change</Text>
+                <Text style={{ fontSize: 18 }}>Change</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -175,20 +143,23 @@ class Edit extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#000",
     flex: 1,
   },
   top: {
-    backgroundColor: "#aaa",
-    flex: 3,
+    backgroundColor: "#000",
+    flex: 2,
+    justifyContent: "center",
   },
   content: {
     backgroundColor: "#bbb",
     flex: 2,
     padding: 20,
+    margin: 20,
   },
   bottom: {
-    backgroundColor: "#ccc",
-    flex: 3,
+    backgroundColor: "#000",
+    flex: 6,
   },
   image: {
     width: "100%",
@@ -196,35 +167,67 @@ const styles = StyleSheet.create({
     backgroundColor: "#dddddd",
   },
   header: {
+    backgroundColor: "#000",
     flexDirection: "row",
-    backgroundColor: "#FFFFFF",
+    height: 50,
+    marginTop: 30,
+  },
+  header_text: {
+    // backgroundColor: "white",
+    // flex: 1,
+  },
+  header_button: {
+    backgroundColor: "#ccc",
+    flex: 1,
+    flexDirection: "row-reverse",
     alignItems: "center",
-    height: 70,
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
-    marginTop: 50,
+    borderBottomLeftRadius: 20,
+    paddingLeft: 10,
   },
   box: {
-    backgroundColor: "#666",
+    // backgroundColor: "#666",
     flex: 1,
     flexDirection: "row",
-    marginBottom: 20,
+    //alignItems: 'center',
+    //justifyContent:"space-around",
+    borderRadius: 5,
+    margin: 10,
+  },
+  box_header: {
+    backgroundColor: "#fff",
+    flex: 1,
+    // alignItems: "center",
+    justifyContent: "center",
+    borderBottomRightRadius: 20,
+    paddingLeft: 10,
+  },
+  box_nav: {
+    flex: 4,
+    flexDirection: "row-reverse",
   },
   text: {
-    backgroundColor: "cyan",
-    flex: 2,
+    //backgroundColor: "cyan",
+    fontSize: 18,
+    flex: 0.3,
     alignSelf: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    margin: 3,
   },
   text_input: {
     backgroundColor: "#999",
-    flex: 6,
+    fontSize: 16,
+    flex: 0.7,
     borderRadius: 50,
+    margin: 2,
+    padding: 4,
   },
   button: {
     flex: 1,
-    backgroundColor: "orange",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 50,
   },
 });
 

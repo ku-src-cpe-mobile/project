@@ -111,47 +111,51 @@ class Feed extends Component {
   Header = () => {
     return (
       <View style={styles.header}>
-        <Text style={styles.header_text}>Feed</Text>
-        <TouchableOpacity style={styles.header_button} onPress={this.call}>
+        <View style={styles.box_header}>
+          <Text style={styles.header_text}>Feed</Text>
+        </View>
+        <View style={styles.box_nav}>
+          {/* <TouchableOpacity style={styles.header_button} onPress={this.call}>
           <Text>Call</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.header_button} onPress={this.check}>
           <Text>Check</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.header_button}
-          onPress={() => {
-            this.props.navigation.navigate("Feed");
-          }}
-        >
-          <Text>Feed</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.header_button}
-          onPress={() => {
-            this.props.navigation.navigate("Post", {
-              id: this.id,
-              name: this.name,
-              count: this.state.count,
-            });
-          }}
-        >
-          <Text>Post</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.header_button}
-          onPress={() => {
-            this.props.navigation.navigate("Edit", {
-              id: this.id,
-              name: this.name,
-            });
-          }}
-        >
-          <Text>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.header_button} onPress={this.reload}>
-          <Text>Reload</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Feed");
+            }}
+          >
+            <Text>Feed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Post", {
+                id: this.id,
+                name: this.name,
+                count: this.state.count,
+              });
+            }}
+          >
+            <Text>Post</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.header_button}
+            onPress={() => {
+              this.props.navigation.navigate("Edit", {
+                id: this.id,
+                name: this.name,
+              });
+            }}
+          >
+            <Text>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.header_button} onPress={this.reload}>
+            <Text>Reload</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -178,6 +182,7 @@ class Feed extends Component {
           >
             <Text>
               <FontAwesome5 name="ghost" size={24} color="black" />
+              <Text> </Text>
               {item.like}
             </Text>
           </TouchableOpacity>
@@ -193,7 +198,11 @@ class Feed extends Component {
               firestore.get_post_store(this.accept_store, this.reject);
             }}
           >
-            <Text>{item.share}♫</Text>
+            <Text>
+              {item.share}
+              <Text> </Text>
+              <FontAwesome5 name="share-square" size={24} color="black" />
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -250,28 +259,39 @@ const styles = StyleSheet.create({
     height: Math.round(Dimensions.get("window").height) / 2,
   },
   header: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#000",
     flexDirection: "row",
-    alignItems: "center",
-    height: 70,
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
-    marginTop: 50,
+    height: 50,
+    marginTop: 30,
   },
   header_text: {
-    backgroundColor: "green",
-    flex: 1,
-    borderRadius: 50,
+    // backgroundColor: "white",
+    // flex: 1,
   },
   header_button: {
-    backgroundColor: "green",
+    backgroundColor: "#ccc",
     flex: 1,
-    borderRadius: 50,
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    borderBottomLeftRadius: 20,
+    paddingLeft: 10,
   },
   box: {
     flex: 1,
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  box_header: {
+    backgroundColor: "#fff",
+    flex: 1,
+    // alignItems: "center",
+    justifyContent: "center",
+    borderBottomRightRadius: 20,
+    paddingLeft: 10,
+  },
+  box_nav: {
+    flex: 4,
+    flexDirection: "row-reverse",
   },
   name: {
     backgroundColor: "gray",
@@ -284,7 +304,6 @@ const styles = StyleSheet.create({
   },
   icon_left: {
     backgroundColor: "#18F438",
-    height: 30,
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
@@ -292,7 +311,6 @@ const styles = StyleSheet.create({
   },
   icon_right: {
     backgroundColor: "#696969",
-    height: 30,
     flex: 1,
     flexDirection: "row-reverse",
     justifyContent: "center",

@@ -9,6 +9,7 @@ import {
   Image,
   ImageBackground,
   Dimensions,
+  Alert,
 } from "react-native";
 
 import firestore from "./firebase/Firestore";
@@ -61,7 +62,13 @@ class Login extends Component {
     console.log("func: Login/accept_get_init pass");
   };
 
-  reject = (err) => {};
+  reject = (err) => {
+    // console.log('login fail');
+  };
+
+  reject_auth=(err)=>{
+    Alert.alert("Login False","Please check your email and password",[{ text: "OK", onPress: () => console.log("OK") }],{ cancelable: false });
+  }
 
   componentDidMount() {
     console.log("func: Login/componentDidMount");
@@ -83,7 +90,7 @@ class Login extends Component {
           this.state.email,
           this.state.password,
           this.accept_auth,
-          this.reject
+          this.reject_auth
         );
       }
     });
@@ -276,6 +283,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     margin: 3,
+    height:30
   },
   text_input: {
     backgroundColor: "#999",
@@ -284,6 +292,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     margin: 2,
     padding: 4,
+    height:30
   },
   button: {
     flex: 1,
@@ -291,6 +300,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+    marginTop:2 ,
+    height:40
   },
   image: {
     flex: 1,

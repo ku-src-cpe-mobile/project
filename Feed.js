@@ -7,11 +7,12 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  ImageBackground,
   Dimensions,
 } from "react-native";
 
 import { FontAwesome5 } from "@expo/vector-icons";
-
+import { SimpleLineIcons } from '@expo/vector-icons'; 
 import firestore from "./firebase/Firestore";
 
 class Feed extends Component {
@@ -112,22 +113,17 @@ class Feed extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.box_header}>
-          <Text style={styles.header_text}>Feed</Text>
+          <FontAwesome5 name="ghost" size={24} color="black" />
         </View>
         <View style={styles.box_nav}>
-          {/* <TouchableOpacity style={styles.header_button} onPress={this.call}>
-          <Text>Call</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.header_button} onPress={this.check}>
-          <Text>Check</Text>
-        </TouchableOpacity> */}
+          
           <TouchableOpacity
             style={styles.header_button}
             onPress={() => {
               this.props.navigation.navigate("Feed");
             }}
           >
-            <Text>Feed</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Feed</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.header_button}
@@ -139,7 +135,7 @@ class Feed extends Component {
               });
             }}
           >
-            <Text>Post</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Post</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.header_button}
@@ -150,10 +146,17 @@ class Feed extends Component {
               });
             }}
           >
-            <Text>Edit</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.header_button} onPress={this.reload}>
-            <Text>Reload</Text>
+          <TouchableOpacity style={{backgroundColor: "#2CA22F",
+              flex: 1,
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              margin:1,
+              paddingLeft: 20,
+              borderBottomLeftRadius:10}}
+              onPress={this.reload}>
+            <Text style={{fontSize:17,fontWeight: 'bold'}}>Reload</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -163,6 +166,7 @@ class Feed extends Component {
   renderItem = ({ item }) => {
     return (
       <View style={styles.container}>
+
         <Text style={styles.name}>{item.name}</Text>
         <View>
           <Image source={{ uri: item.uri }} style={styles.image} />
@@ -181,7 +185,7 @@ class Feed extends Component {
             }}
           >
             <Text>
-              <FontAwesome5 name="ghost" size={24} color="black" />
+              <SimpleLineIcons name="ghost" size={24} color="black" />
               <Text> </Text>
               {item.like}
             </Text>
@@ -213,7 +217,7 @@ class Feed extends Component {
     return (
       <View
         style={{
-          backgroundColor: "black",
+          //backgroundColor: "black",
           height: 20,
         }}
       />
@@ -223,9 +227,10 @@ class Feed extends Component {
   render(props) {
     const { navigation } = this.props;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,backgroundColor:'black' }}>
         <this.Header />
-        <View style={{ flex: 1, backgroundColor: "black", paddingTop: 20 }}>
+        <ImageBackground style={styles.image2} source={{uri:"https://firebasestorage.googleapis.com/v0/b/myproject-75fab.appspot.com/o/image%2Fghost4.jpg?alt=media&token=b72af29f-6f1b-4159-9a6e-ea7988c681e9&fbclid=IwAR3-JnqGj7JUpNX7zKS3E2NaxQXcGduVGFYKRGw1WyR2da23ozhRx7mdOZE://firebasestorage.googleapis.com/v0/b/myproject-75fab.appspot.com/o/image%2Fghost.jpg?alt=media&token=c8d670b4-e4af-497d-bb29-ba6d3ea8a787&fbclid=IwAR2OVDYhBycIMDabRdKdhQAf3rVJ-HafGzhEfFRF4IJiEy0FEMH0hSDfBzs"}}>
+        <View style={{ flex: 1, paddingTop: 20 }}>
           <View style={styles.content}>
             <FlatList
               data={this.state.posts}
@@ -238,6 +243,7 @@ class Feed extends Component {
             />
           </View>
         </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   content: {
-    backgroundColor: "black",
+    //backgroundColor: "black",
     flex: 1,
   },
   image: {
@@ -265,16 +271,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   header_text: {
-    // backgroundColor: "white",
-    // flex: 1,
+    fontFamily: "sans-serif-thin",
+    alignItems:"flex-start",
+    fontSize:14,
   },
   header_button: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#2CA22F",
     flex: 1,
     flexDirection: "row-reverse",
     alignItems: "center",
-    borderBottomLeftRadius: 20,
-    paddingLeft: 10,
+    margin:1,
+    paddingLeft: 20,
   },
   box: {
     flex: 1,
@@ -283,15 +290,18 @@ const styles = StyleSheet.create({
   },
   box_header: {
     backgroundColor: "#fff",
-    flex: 1,
+    flex: 0.5,
     // alignItems: "center",
     justifyContent: "center",
     borderBottomRightRadius: 20,
     paddingLeft: 10,
+    margin:1,
   },
   box_nav: {
-    flex: 4,
+    flex: 5,
+    backgroundColor:"black",
     flexDirection: "row-reverse",
+    borderRadius:10,
   },
   name: {
     backgroundColor: "gray",
@@ -315,6 +325,11 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "center",
     borderBottomRightRadius: 50,
+  },
+  image2: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });
 

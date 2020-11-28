@@ -7,11 +7,14 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  ImageBackground,
   Dimensions,
+  Alert,
 } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
-
+import { FontAwesome5 } from "@expo/vector-icons";
+import { SimpleLineIcons } from '@expo/vector-icons'; 
 import firestore from "./firebase/Firestore";
 
 class Edit extends Component {
@@ -40,6 +43,8 @@ class Edit extends Component {
     console.log(this.state.name);
     firestore.update_users(this.id, this.state.name, this.accept, this.reject);
     console.log("func: Edit/on_change pass");
+    Alert.alert("SUCCESS","Your name's updated.",[{ text: "OK", onPress: () => console.log("OK") }],{ cancelable: false });
+    
   };
 
   call = () => {
@@ -55,7 +60,7 @@ class Edit extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.box_header}>
-          <Text style={styles.header_text}>Feed</Text>
+          <FontAwesome5 name="ghost" size={24} color="black" />
         </View>
         <View style={styles.box_nav}>
           {/* <TouchableOpacity style={styles.header_button} onPress={this.call}>
@@ -70,7 +75,7 @@ class Edit extends Component {
               this.props.navigation.navigate("Feed");
             }}
           >
-            <Text>Feed</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Feed</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.header_button}
@@ -82,7 +87,7 @@ class Edit extends Component {
               });
             }}
           >
-            <Text>Post</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Post</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.header_button}
@@ -93,10 +98,17 @@ class Edit extends Component {
               });
             }}
           >
-            <Text>Edit</Text>
+            <Text style={{fontSize:18,fontWeight: 'bold'}}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.header_button} onPress={this.reload}>
-            <Text>Reload</Text>
+          <TouchableOpacity style={{backgroundColor: "#2CA22F",
+              flex: 1,
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              margin:1,
+              paddingLeft: 20,
+              borderBottomLeftRadius:10}} 
+              onPress={this.reload}>
+            <Text style={{fontSize:17,fontWeight: 'bold'}}>Reload</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -117,6 +129,7 @@ class Edit extends Component {
     return (
       <View style={styles.container}>
         <this.Header />
+        <ImageBackground style={styles.image2} source={{uri:"https://firebasestorage.googleapis.com/v0/b/myproject-75fab.appspot.com/o/image%2Fghost.jpg?alt=media&token=c8d670b4-e4af-497d-bb29-ba6d3ea8a787&fbclid=IwAR2OVDYhBycIMDabRdKdhQAf3rVJ-HafGzhEfFRF4IJiEy0FEMH0hSDfBzs"}}>
         <View style={styles.top}></View>
         <View style={styles.content}>
           <View style={{ flex: 1 }}>
@@ -136,6 +149,7 @@ class Edit extends Component {
           </View>
         </View>
         <View style={styles.bottom}></View>
+      </ImageBackground>
       </View>
     );
   }
@@ -147,18 +161,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   top: {
-    backgroundColor: "#000",
+    //backgroundColor: "#000",
     flex: 2,
     justifyContent: "center",
   },
   content: {
-    backgroundColor: "#bbb",
+    //backgroundColor: "#bbb",
     flex: 2,
-    padding: 20,
-    margin: 20,
+    padding: 30,
+    margin: 1,
+    height:10
   },
   bottom: {
-    backgroundColor: "#000",
+    //backgroundColor: "#000",
     flex: 6,
   },
   image: {
@@ -173,16 +188,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   header_text: {
-    // backgroundColor: "white",
-    // flex: 1,
+    fontFamily: "sans-serif-thin",
+    alignItems:"flex-start",
+    fontSize:14,
   },
   header_button: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#2CA22F",
     flex: 1,
     flexDirection: "row-reverse",
     alignItems: "center",
-    borderBottomLeftRadius: 20,
-    paddingLeft: 10,
+    margin:1,
+    paddingLeft: 20,
   },
   box: {
     // backgroundColor: "#666",
@@ -195,32 +211,38 @@ const styles = StyleSheet.create({
   },
   box_header: {
     backgroundColor: "#fff",
-    flex: 1,
+    flex: 0.5,
     // alignItems: "center",
     justifyContent: "center",
     borderBottomRightRadius: 20,
     paddingLeft: 10,
+    margin:1,
   },
   box_nav: {
-    flex: 4,
+    flex: 5,
+    backgroundColor:"black",
     flexDirection: "row-reverse",
+    borderRadius:10,
   },
   text: {
     //backgroundColor: "cyan",
-    fontSize: 18,
+    fontSize: 25,
     flex: 0.3,
     alignSelf: "center",
     justifyContent: "center",
     borderRadius: 5,
-    margin: 3,
+    margin: 10,
+    color:"white"
   },
   text_input: {
-    backgroundColor: "#999",
+    backgroundColor: "gray",
+    color:"white",
     fontSize: 16,
     flex: 0.7,
     borderRadius: 50,
-    margin: 2,
-    padding: 4,
+    padding:10,
+    height:50,
+
   },
   button: {
     flex: 1,
@@ -228,6 +250,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+    marginTop:20,
+    height:50
+  },
+  image2: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });
 
